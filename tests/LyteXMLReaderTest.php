@@ -5,6 +5,11 @@ require_once("PHPUnit/Autoload.php");
 require_once(dirname(dirname(__FILE__)).'/Autoload.php');
 
 class LyteXMLReaderTest extends PHPUnit_Framework_TestCase {
+
+	public function testInheritance() {
+		$this->assertInstanceOf('XMLReader', new LyteXMLReader());
+	}
+
 	public function testExpandedNodeHasOwnerDocument() {
 		$reader = new LyteXMLReader();
 		$reader->xml('<foo>bar</foo>');
