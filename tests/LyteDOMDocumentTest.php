@@ -19,4 +19,22 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 		
 		$this->assertInstanceOf('LyteDOMNode', $doc->firstChild);
 	}
+
+	public function testHasXPathProperty() {
+		$doc = new LyteDOMDocument();
+
+		$xpath = $doc->xpath;
+		$this->assertInstanceOf('DOMXPath', $xpath);
+
+		// ensure we get the same instance each time
+		$this->assertTrue($xpath === $doc->xpath);
+	}
+
+	public function testHasXPathWorksOnOurDoc() {
+		$doc = new LyteDOMDocument();
+		$doc->loadXML('<foo/>');
+
+		$nodeName = $doc->xpath->query('/foo')->item(0)->nodeName;
+		$this->assertEquals('foo', $nodeName);
+	}
 }

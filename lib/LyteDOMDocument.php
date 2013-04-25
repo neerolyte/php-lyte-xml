@@ -32,6 +32,10 @@ class LyteDOMDocument {
 			$this->firstChild = new LyteDOMNode($this->_decorated->firstChild);
 			return $this->firstChild;
 		}
+		if ($name == 'xpath') {
+			$this->xpath = new DOMXPath($this->_decorated);
+			return $this->xpath;
+		}
 
 		return $this->_decorated->$name;
 	}

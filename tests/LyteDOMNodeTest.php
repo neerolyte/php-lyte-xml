@@ -6,6 +6,6 @@ require_once(dirname(dirname(__FILE__)).'/Autoload.php');
 
 class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 	public function testCanInstantiate() {
-		$node = new LyteDOMNode();
+		$node = new LyteDOMNode(new DOMNode());
 	}
 }

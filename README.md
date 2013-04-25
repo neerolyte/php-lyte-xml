@@ -6,6 +6,12 @@ The base classes for XML work in php have a few little quirks that annoy me a lo
 
 Some of what I'm trying to put in is going to be purely experimental, so you use at you're own risk :)
 
+## Features
+
+ * Correctly encodes nested CDATA
+ * `XMLReader` expanded `DOMNode`s actually has an `ownerDocument`
+ * Lazy OO xpaths `LyteDOMDocument` has a `xpath` propery that exists anywhere your doc does
+
 ## Examples
 
 ### Nested CDATA in XMLWriter
@@ -72,3 +78,31 @@ works this time:
 <?xml version="1.0"?>
 <foo>bar</foo>
 ```
+
+### Lazy XPaths
+
+PHP has fairly relaibly XPath support in the form of `DOMXPath`, but it's not directly attached to anything, breaking your nice OO context.
+
+`LyteDOMDocument` will lazily create a `DOMXPath` object for use if you just ask for it, e.g. with regular `DOMDocument`:
+```php
+$doc = new DOMDocument();
+$doc->load('<foo/>');
+$xpath = new DOMXPath($doc);
+// and now I've got to pass around $doc and $xpath or recreate $xpath many times
+```
+
+with `LyteDOMDocument`:
+```php
+$doc = new LyteDOMDocument();
+$doc->loadXML('<foo/>');
+// now I can just use the xpath
+$nodes = $doc->xpath->query('/foo');
+```
+
+## Caveats
+
+Most of the classes I've created do not directly inherit from the XML ones, e.g. `new LyteDOMDocument() instanceof DOMDocument` is false. I've currently done this because to avoid duplicating memory all over the place and reserializing too much of the XML, I really need to use the decorator pattern, but even with PHP's [magic methods](http://php.net/manual/en/language.oop5.magic.php) I can't find a way to both inherit and decorate an object. I've even looked in to using the [Reflection API](http://php.net/manual/en/book.reflection.php) to walk the upstream classes and selectively `eval` a new class in to existence, but ran in to problems with many of public properties getting updated at odd times by the base DOM classes.
+
+The net result is a bunch of objects that walk like ducks, talk like ducks, but you might have trouble in weird corner cases convincing PHP that they're ducks, but still send me any bugs when you run in to issues.
+
+If anyone can solve this, lodge an issue :)
