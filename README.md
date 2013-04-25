@@ -1,6 +1,10 @@
 # php-lyte-xml
 
+[![Build Status](https://travis-ci.org/neerolyte/php-lyte-xml.png)](https://travis-ci.org/neerolyte/php-lyte-xml)
+
 The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those annoyances.
+
+Some of what I'm trying to put in is going to be purely experimental, so you use at you're own risk :)
 
 ## Examples
 
