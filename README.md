@@ -1,6 +1,6 @@
 # php-lyte-xml
 
-The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those [[annoyances.]]
+The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those annoyances.
 
 ## Examples
 
