@@ -6,6 +6,13 @@
 class LyteDOMDocument {
 	private $_decorated = null;
 
+	/**
+	 * Optionally specify a real DOMDocument to construct this one from
+	 */
+	public function __construct(&$doc = null) {
+		$this->_decorated =& $doc;
+	}
+
 	private function _checkDecorating() {
 		if ($this->_decorated === null) {
 			$this->_decorated = new DOMDocument();
