@@ -11,6 +11,7 @@ Some of what I'm trying to put in is going to be purely experimental, so you use
  * Correctly encodes nested CDATA
  * `XMLReader` expanded `DOMNode`s actually has an `ownerDocument`
  * Lazy OO xpaths `LyteDOMDocument` has a `xpath` propery that exists anywhere your doc does
+ * `XPath` functions on `DOMNode`s that know their context
 
 ## Examples
 
@@ -98,6 +99,26 @@ $doc->loadXML('<foo/>');
 // now I can just use the xpath
 $nodes = $doc->xpath->query('/foo');
 ```
+
+### Contextified DOMNode XPath functions
+
+Normally to run a XPath under a specific context you have to do a fair bit of set up, e.g.:
+```php
+$doc = new DOMDocument();
+$doc->loadXML('<root><foo>one</foo><foo>two</foo></root>');
+$xpath = new DOMXPath($doc);
+$node = $doc->firstChild;
+$nodes = $xpath->query('foo/text()', $node);
+```
+
+but `LyteDOMNode`s provide xpath functions directly that are already contextualised:
+```php
+$doc = new LyteDOMDocument();
+$doc->loadXML('<root><foo>one</foo><foo>two</foo></root>');
+$nodes = $doc->firstChild->xPathQuery('foo/text()');
+```
+
+There's also a `LyteDOMNode::xPathEvaluate()` function.
 
 ## Caveats
 
