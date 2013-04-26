@@ -1,6 +1,6 @@
 <?php
 class LyteDOMNode {
-	private $_decorated = null;
+	protected $_decorated = null;
 
 	/**
 	 * Optionally decorate a DOMNode or a LyteDOMNode
@@ -12,7 +12,9 @@ class LyteDOMNode {
 			} else {
 				$this->_decorated =& $node;
 			}
-		} 
+		} else {
+			throw new ArgumentException("Node can not be null");
+		}
 	}
 
 	/**
@@ -53,5 +55,16 @@ class LyteDOMNode {
 	 */
 	public function xPathEvaluate($expression) {
 		return $this->ownerDocument->xpath->evaluate($expression, $this->_decorated);
+	}
+
+	/**
+	 * Ensure that appended children are actually the decorated children
+	 */
+	public function appendChild(&$child) {
+		$c =& $child;
+		if ($child instanceof LyteDOMNode) {
+			$c = $child->getDecorated();
+		}
+		return $this->_decorated->appendChild($c);
 	}
 }

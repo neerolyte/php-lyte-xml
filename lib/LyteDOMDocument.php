@@ -3,9 +3,7 @@
  * LyteDOMDocument decorates extra behaviour on to DOMDocument, but it
  * can't easilly inherit from it.
  */
-class LyteDOMDocument {
-	private $_decorated = null;
-
+class LyteDOMDocument extends LyteDOMNode {
 	/**
 	 * Optionally specify a real DOMDocument to construct this one from
 	 */
@@ -20,12 +18,21 @@ class LyteDOMDocument {
 	}
 
 	/**
+	 * DOMDocuments might not actually be decorated up front,
+	 * so we lazily set one up here
+	 */
+	public function &getDecorated() {
+		$this->_checkDecorating();
+		return parent::getDecorated();
+	}
+
+	/**
 	 * Catch calls to us and pass through to our decorated DOMDocument
 	 */
 	public function __call($name, $args) {
 		$this->_checkDecorating();
 
-		call_user_func_array(array($this->_decorated, $name), $args);
+		return call_user_func_array(array($this->_decorated, $name), $args);
 	}
 
 	/**

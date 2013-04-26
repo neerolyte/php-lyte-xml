@@ -26,4 +26,13 @@ class LyteXMLReaderTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains('<foo>bar</foo>', $node->ownerDocument->saveXML());
 		$this->assertEquals('<foo>bar</foo>', $node->ownerDocument->saveXML($node));
 	}
+
+	public function testExpandedNodeIsALyteDOMNode() {
+		return; // TODO
+		$reader = new LyteXMLReader();
+		$reader->xml('<foo>bar</foo>');
+		$reader->read();
+		$node = $reader->expand();                                                                                             
+		$this->assertInstanceOf('LyteDOMNode', $node->ownerDocument);
+	}
 }

@@ -6,16 +6,16 @@ The base classes for XML work in php have a few little quirks that annoy me a lo
 
 Some of what I'm trying to put in is going to be purely experimental, so you use at you're own risk :)
 
-## Features
+# Features
 
  * Correctly encodes nested CDATA
  * `XMLReader` expanded `DOMNode`s actually has an `ownerDocument`
  * Lazy OO xpaths `LyteDOMDocument` has a `xpath` propery that exists anywhere your doc does
  * `XPath` functions on `DOMNode`s that know their context
 
-## Examples
+# Examples
 
-### Nested CDATA in XMLWriter
+## Nested CDATA in XMLWriter
 
 There's a [fairly well known](http://en.wikipedia.org/wiki/CDATA#Nesting) method for working around the fact that XML doesn't actually let you nest a CDATA tag inside another one, but XMLWriter doesn't bother to apply this fix for you. Which is a problem if for instance you're transporting HTML fragments within another XML format.
 
@@ -45,7 +45,7 @@ will result in:
 <![CDATA[<![CDATA[a little bit of cdata]]]]><![CDATA[>]]>
 ```
 
-### Expanding to a DOMNode from XMLReader
+## Expanding to a DOMNode from XMLReader
 
 With the default XMLReader if you call `expand()` you get back a `DOMNode` which is nice, but it has its `ownerDocument` property set to `null`, which makes things like using a `DOMXPath` or saving it to an XML string snippet quite difficult.
 
@@ -80,7 +80,7 @@ works this time:
 <foo>bar</foo>
 ```
 
-### Lazy XPaths
+## Lazy XPaths
 
 PHP has fairly relaibly XPath support in the form of `DOMXPath`, but it's not directly attached to anything, breaking your nice OO context.
 
@@ -100,7 +100,7 @@ $doc->loadXML('<foo/>');
 $nodes = $doc->xpath->query('/foo');
 ```
 
-### Contextified DOMNode XPath functions
+## Contextified DOMNode XPath functions
 
 Normally to run a XPath under a specific context you have to do a fair bit of set up, e.g.:
 ```php
@@ -111,7 +111,7 @@ $node = $doc->firstChild;
 $nodes = $xpath->query('foo/text()', $node);
 ```
 
-but `LyteDOMNode`s provide xpath functions directly that are already contextualised:
+but `LyteDOMNode` provides XPath functions directly that are already contextified:
 ```php
 $doc = new LyteDOMDocument();
 $doc->loadXML('<root><foo>one</foo><foo>two</foo></root>');
@@ -120,7 +120,7 @@ $nodes = $doc->firstChild->xPathQuery('foo/text()');
 
 There's also a `LyteDOMNode::xPathEvaluate()` function.
 
-## Caveats
+# Caveats
 
 Most of the classes I've created do not directly inherit from the XML ones, e.g. `new LyteDOMDocument() instanceof DOMDocument` is false. I've currently done this because to avoid duplicating memory all over the place and reserializing too much of the XML, I really need to use the decorator pattern, but even with PHP's [magic methods](http://php.net/manual/en/language.oop5.magic.php) I can't find a way to both inherit and decorate an object. I've even looked in to using the [Reflection API](http://php.net/manual/en/book.reflection.php) to walk the upstream classes and selectively `eval` a new class in to existence, but ran in to problems with many of public properties getting updated at odd times by the base DOM classes.
 

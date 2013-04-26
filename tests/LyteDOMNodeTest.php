@@ -61,4 +61,20 @@ class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(1, $res->length);
 		$this->assertEquals('one', $res->item(0)->wholeText);
 	}
+
+	public function testCanAppendEitherChildtype() {
+		$doc = new LyteDOMDocument();
+		$parent = new LyteDOMNode($doc->createElement('foo'));
+
+		$doc->getDecorated()->appendChild($parent->getDecorated());
+
+		$node = $doc->getDecorated()->createElement('foo');
+		$lnode = new LyteDOMNode($doc->createElement('bar'));
+
+		$parent->appendChild($node);
+		$parent->appendChild($lnode);
+
+		$this->assertEquals('<foo/>', $doc->saveXML($node));
+		$this->assertEquals('<bar/>', $doc->saveXML($lnode));
+	}
 }
