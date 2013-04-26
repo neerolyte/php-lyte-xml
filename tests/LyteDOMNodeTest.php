@@ -40,6 +40,7 @@ class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 		$res = $node->xPathQuery('text()');
 		$this->assertEquals(1, $res->length);
 		$this->assertEquals('one', $res->item(0)->wholeText);
+		$this->assertInstanceOf('LyteDOMNodeList', $res);
 	}
 
 	public function testHasContextifiedXPathEvaluate() {
@@ -56,6 +57,7 @@ class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 		$res = $node->xPathEvaluate('text()');
 		$this->assertEquals(1, $res->length);
 		$this->assertEquals('one', $res->item(0)->wholeText);
+		$this->assertInstanceOf('LyteDOMNodeList', $res);
 	}
 
 	public function testCanAppendEitherChildtype() {

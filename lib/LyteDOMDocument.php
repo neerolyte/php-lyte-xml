@@ -25,7 +25,7 @@ class LyteDOMDocument extends LyteDOMNode {
 			return $this->firstChild;
 		}
 		if ($name == 'xpath') {
-			$this->xpath = new DOMXPath($this->_decorated);
+			$this->xpath = new LyteDOMXPath($this);
 			return $this->xpath;
 		}
 

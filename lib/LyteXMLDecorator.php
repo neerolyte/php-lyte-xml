@@ -44,7 +44,7 @@ abstract class LyteXMLDecorator {
 	/**
 	 * Decorate one of the XML classes back to a LyteXML class
 	 */
-	public static function _decorate(&$obj) {
+	public static function _decorate($obj) {
 		// convert certain classes back to their decorated versions
 		if ($obj instanceof DOMDocument)
 			return new LyteDOMDocument($obj);

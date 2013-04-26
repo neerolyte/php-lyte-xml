@@ -20,7 +20,7 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 		$doc = new LyteDOMDocument();
 
 		$xpath = $doc->xpath;
-		$this->assertInstanceOf('DOMXPath', $xpath);
+		$this->assertInstanceOf('LyteDOMXPath', $xpath);
 
 		// ensure we get the same instance each time
 		$this->assertTrue($xpath === $doc->xpath);
