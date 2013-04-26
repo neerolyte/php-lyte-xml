@@ -4,13 +4,13 @@
 
 The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those annoyances.
 
-Some of what I'm trying to put in is going to be purely experimental, so you use at you're own risk :)
+Some of what I'm trying to put in is going to be purely experimental, so use at you're own risk :)
 
 # Features
 
  * Correctly encodes nested CDATA
- * `XMLReader` expanded `DOMNode`s actually has an `ownerDocument`
- * Lazy OO xpaths `LyteDOMDocument` has a `xpath` propery that exists anywhere your doc does
+ * Any `XMLReader` expanded `DOMNode` actually has an `ownerDocument`
+ * Lazy OO xpaths - `LyteDOMDocument` has a `xpath` propery that exists anywhere your `DOMDocument` does
  * `XPath` functions on `DOMNode`s that know their context
  * Key/Value pair iterator
 
@@ -48,7 +48,7 @@ will result in:
 
 ## Expanding to a DOMNode from XMLReader
 
-With the default XMLReader if you call `expand()` you get back a `DOMNode` which is nice, but it has its `ownerDocument` property set to `null`, which makes things like using a `DOMXPath` or saving it to an XML string snippet quite difficult.
+With the default `XMLReader` if you call `expand()` you get back a `DOMNode`, which is nice, but it has its `ownerDocument` property set to `null`, which makes things like using a `DOMXPath` or saving it to an XML string snippet quite difficult.
 
 E.g. with the normal `XMLReader`:
 ```php
@@ -71,7 +71,7 @@ With `LyteXMLReader` if you expand a node it creates the `ownerDocument` for you
 $reader = new LyteXMLReader();
 $reader->xml('<foo>bar</foo>');
 $reader->read();
-$node = $reader->expand();                                                                                             
+$node = $reader->expand();
 echo $node->ownerDocument->saveXML();
 ```
 
@@ -83,7 +83,7 @@ works this time:
 
 ## Lazy XPaths
 
-PHP has fairly relaibly XPath support in the form of `DOMXPath`, but it's not directly attached to anything, breaking your nice OO context.
+PHP has fairly relaible `XPath` support in the form of `DOMXPath`, but it's not directly attached to anything, breaking your nice OO context because now you either need to pass around two objects or continually reinstatiate your `DOMXPath` object.
 
 `LyteDOMDocument` will lazily create a `DOMXPath` object for use if you just ask for it, e.g. with regular `DOMDocument`:
 ```php
@@ -97,7 +97,7 @@ with `LyteDOMDocument`:
 ```php
 $doc = new LyteDOMDocument();
 $doc->loadXML('<foo/>');
-// now I can just use the xpath
+// now I can just use the xpath (the xpath property gets instantiated to a LyteDOMXPath as it's requested)
 $nodes = $doc->xpath->query('/foo');
 ```
 
@@ -119,7 +119,7 @@ $doc->loadXML('<root><foo>one</foo><foo>two</foo></root>');
 $nodes = $doc->firstChild->xPathQuery('foo/text()');
 ```
 
-There's also a `LyteDOMNode::xPathEvaluate()` function.
+There's also a `LyteDOMNode::xPathEvaluate()` function that's synonymous with `DOMXPath::evaluate()` with the context already filled out.
 
 ## Key/Value pair iterator
 
@@ -138,7 +138,7 @@ With `LyteDOMNodeList` I've provided a `toPairs()` function to simplify this ope
 // once you have a node with the key/pairs in it:
 $node = ...;
 // you can just iterate over it:
-foreach ($node->childNodes as $k => $v) {
+foreach ($node->childNodes->toPairs() as $k => $v) {
 	...
 }
 ```
