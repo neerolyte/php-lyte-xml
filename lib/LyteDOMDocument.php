@@ -29,8 +29,19 @@ class LyteDOMDocument extends LyteDOMNode {
 	/**
 	 * Catch calls to us and pass through to our decorated DOMDocument
 	 */
-	public function __call($name, $args) {
+	public function __call($name, $origArgs) {
 		$this->_checkDecorating();
+
+		$args = array();
+
+		// check through the arguments and undecorate anything before passing through
+		foreach ($origArgs as &$arg) {
+			if ($arg instanceof LyteDOMNode) {
+				$args []=& $arg->getDecorated();
+			} else {
+				$args []=& $arg;
+			}
+		}
 
 		return call_user_func_array(array($this->_decorated, $name), $args);
 	}

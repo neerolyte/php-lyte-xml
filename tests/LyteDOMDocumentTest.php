@@ -50,4 +50,14 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('<foo/>', $doc->saveXML($node));
 		$this->assertEquals('<bar/>', $doc->saveXML($lnode));
 	}
+
+	public function testCanSaveEitherNodeTypeAsXML() {
+		$doc = new LyteDOMDocument();
+		$doc->loadXML('<foo/>');
+		$lnode = new LyteDOMNode($doc->firstChild);
+		$node = $lnode->getDecorated();
+
+		$this->assertEquals('<foo/>', $doc->saveXML($node));
+		$this->assertEquals('<foo/>', $doc->saveXML($lnode));
+	}
 }
