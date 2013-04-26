@@ -8,8 +8,11 @@ abstract class LyteXMLDecorator {
 	 */
 	protected $_decorated = null;
 
-	public function __construct(&$arg) {
-		$this->_decorated = $arg;
+	public function __construct($obj = null) {
+		if ($obj instanceof LyteXMLDecorator)
+			$this->_decorated =& $obj->_decorated;
+		else
+			$this->_decorated =& $obj;
 	}
 
 	/**
@@ -43,6 +46,8 @@ abstract class LyteXMLDecorator {
 	 */
 	public static function _decorate(&$obj) {
 		// convert certain classes back to their decorated versions
+		if ($obj instanceof DOMDocument)
+			return new LyteDOMDocument($obj);
 		if ($obj instanceof DOMElement)
 			return new LyteDOMElement($obj);
 		if ($obj instanceof DOMNode)
