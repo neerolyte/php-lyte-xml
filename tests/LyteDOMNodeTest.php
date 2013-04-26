@@ -73,4 +73,19 @@ class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('<foo/>', $doc->saveXML($node));
 		$this->assertEquals('<bar/>', $doc->saveXML($lnode));
 	}
+
+	public function testChildNodesIsALyteDOMNodeList() {
+		$doc = new LyteDOMDocument();
+		$doc->loadXML('<foo/>');
+		$children = $doc->childNodes;
+
+		$this->assertInstanceOf('LyteDOMNodeList', $children);
+
+		$count = 0;
+		foreach ($children as $child) {
+			$this->assertEquals('foo', $child->nodeName);
+			$count++;
+		}
+		$this->assertEquals(1, $count);
+	}
 }

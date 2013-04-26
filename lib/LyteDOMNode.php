@@ -10,8 +10,6 @@ class LyteDOMNode extends LyteXMLDecorator {
 			} else {
 				$this->_decorated =& $node;
 			}
-		} else {
-			throw new ArgumentException("Node can not be null");
 		}
 	}
 

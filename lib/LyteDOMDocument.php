@@ -29,6 +29,6 @@ class LyteDOMDocument extends LyteDOMNode {
 			return $this->xpath;
 		}
 
-		return $this->_decorated->$name;
+		return parent::__get($name);
 	}
 }

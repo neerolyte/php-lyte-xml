@@ -2,7 +2,7 @@
 /**
  * Some generalised decorating behaviour
  */
-class LyteXMLDecorator {
+abstract class LyteXMLDecorator {
 	/**
 	 * What we're currently decorating
 	 */
@@ -41,11 +41,14 @@ class LyteXMLDecorator {
 	/**
 	 * Decorate one of the XML classes back to a LyteXML class
 	 */
-	protected function _decorate(&$obj) {
-
+	public static function _decorate(&$obj) {
 		// convert certain classes back to their decorated versions
+		if ($obj instanceof DOMElement)
+			return new LyteDOMElement($obj);
 		if ($obj instanceof DOMNode)
 			return new LyteDOMNode($obj);
+		if ($obj instanceof DOMNodeList)
+			return new LyteDOMNodeList($obj);
 		return $obj;
 	}
 
@@ -54,6 +57,6 @@ class LyteXMLDecorator {
 	 * DOMDocument
 	 */
 	public function __get($name) {
-		return $this->_decorated->$name;
+		return $this->_decorate($this->_decorated->$name);
 	}
 }
