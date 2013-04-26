@@ -11,12 +11,14 @@ class LyteXMLReader extends XMLReader {
 	public function expand(DOMNode &$basenode = null) {
 		$node = parent::expand($basenode);
 
+		// synthesize the ownerDocument if it's not filled out
 		if ($node->ownerDocument === null) {
 			$doc = new DOMDocument();
 			$node = $doc->importNode($node, true);
 			$doc->appendChild($node);
 		}
 
-		return $node;
+		// decorate the expanded node
+		return new LyteDOMNode($node);
 	}
 }

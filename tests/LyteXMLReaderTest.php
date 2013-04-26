@@ -15,7 +15,7 @@ class LyteXMLReaderTest extends PHPUnit_Framework_TestCase {
 		$reader->xml('<foo>bar</foo>');
 		$reader->read();
 		$node = $reader->expand();                                                                                             
-		$this->assertInstanceOf('DOMDocument', $node->ownerDocument);
+		$this->assertInstanceOf('LyteDOMDocument', $node->ownerDocument);
 	}
 
 	public function testExpandedNodesOwnerDocumentHasNode() {
@@ -24,15 +24,14 @@ class LyteXMLReaderTest extends PHPUnit_Framework_TestCase {
 		$reader->read();
 		$node = $reader->expand();                                                                                             
 		$this->assertContains('<foo>bar</foo>', $node->ownerDocument->saveXML());
-		$this->assertEquals('<foo>bar</foo>', $node->ownerDocument->saveXML($node));
+		$this->assertEquals('<foo>bar</foo>', $node->ownerDocument->saveXML($node->getDecorated()));
 	}
 
 	public function testExpandedNodeIsALyteDOMNode() {
-		return; // TODO
 		$reader = new LyteXMLReader();
 		$reader->xml('<foo>bar</foo>');
 		$reader->read();
 		$node = $reader->expand();                                                                                             
-		$this->assertInstanceOf('LyteDOMNode', $node->ownerDocument);
+		$this->assertInstanceOf('LyteDOMNode', $node);
 	}
 }
