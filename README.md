@@ -12,6 +12,7 @@ Some of what I'm trying to put in is going to be purely experimental, so you use
  * `XMLReader` expanded `DOMNode`s actually has an `ownerDocument`
  * Lazy OO xpaths `LyteDOMDocument` has a `xpath` propery that exists anywhere your doc does
  * `XPath` functions on `DOMNode`s that know their context
+ * Key/Value pair iterator
 
 # Examples
 
@@ -119,6 +120,28 @@ $nodes = $doc->firstChild->xPathQuery('foo/text()');
 ```
 
 There's also a `LyteDOMNode::xPathEvaluate()` function.
+
+## Key/Value pair iterator
+
+I seem to have to parse XML with key pairs a lot, e.g:
+```xml
+<root>
+	<key1>value1</key1>
+	<key2>value2</key2>
+	...
+	<key3>value3</key3>
+</root>
+```
+
+With `LyteDOMNodeList` I've provided a `toPairs()` function to simplify this operation:
+```php
+// once you have a node with the key/pairs in it:
+$node = ...;
+// you can just iterate over it:
+foreach ($node->childNodes as $k => $v) {
+	...
+}
+```
 
 # Caveats
 
