@@ -1,7 +1,5 @@
 <?php
-class LyteDOMNode {
-	protected $_decorated = null;
-
+class LyteDOMNode extends LyteXMLDecorator {
 	/**
 	 * Optionally decorate a DOMNode or a LyteDOMNode
 	 */
@@ -18,20 +16,6 @@ class LyteDOMNode {
 	}
 
 	/**
-	 * Make the underlying decorated node accessible
-	 */
-	public function &getDecorated() {
-		return $this->_decorated;
-	}
-
-	/**
-	 * Catch calls to us and pass through to our decorated DOMDocument
-	 */
-	public function __call($name, $args) {
-		call_user_func_array(array($this->_decorated, $name), $args);
-	}
-
-	/**
 	 * Catch references to properties and pass them through to the decorated
 	 * DOMDocument
 	 */
@@ -40,7 +24,7 @@ class LyteDOMNode {
 			return new LyteDOMDocument($this->_decorated->ownerDocument);
 		}
 
-		return $this->_decorated->$name;
+		return parent::__get($name);
 	}
 
 	/**
