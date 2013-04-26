@@ -5,7 +5,7 @@ class LyteDOMNode {
 	/**
 	 * Optionally decorate a DOMNode or a LyteDOMNode
 	 */
-	public function __construct(&$node = null) {
+	public function __construct($node = null) {
 		if (!is_null($node)) {
 			if ($node instanceof LyteDOMNode) {
 				$this->_decorated =& $node->_decorated;
