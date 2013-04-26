@@ -8,6 +8,10 @@ class LyteXMLDecorator {
 	 */
 	protected $_decorated = null;
 
+	public function __construct(&$arg) {
+		$this->_decorated = $arg;
+	}
+
 	/**
 	 * Make the underlying decorated node accessible
 	 */
@@ -30,7 +34,19 @@ class LyteXMLDecorator {
 			}
 		}
 
-		return call_user_func_array(array($this->_decorated, $name), $args);
+		$ret = call_user_func_array(array($this->_decorated, $name), $args);
+		return $this->_decorate($ret);
+	}
+
+	/**
+	 * Decorate one of the XML classes back to a LyteXML class
+	 */
+	protected function _decorate(&$obj) {
+
+		// convert certain classes back to their decorated versions
+		if ($obj instanceof DOMNode)
+			return new LyteDOMNode($obj);
+		return $obj;
 	}
 
 	/**

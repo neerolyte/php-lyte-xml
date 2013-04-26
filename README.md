@@ -127,3 +127,8 @@ Most of the classes I've created do not directly inherit from the XML ones, e.g.
 The net result is a bunch of objects that walk like ducks, talk like ducks, but you might have trouble in weird corner cases convincing PHP that they're ducks, but still send me any bugs when you run in to issues.
 
 If anyone can solve this, lodge an issue :)
+
+# TODO
+
+ * `DOMNode::childNodes` should be a `LyteDOMNodeList`
+ * Differentiate betwen `LyteDOMNode` and `LyteDOMElement`
