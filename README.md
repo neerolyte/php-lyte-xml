@@ -13,6 +13,7 @@ Some of what I'm trying to put in is going to be purely experimental, so use at 
  * Lazy OO xpaths - `LyteDOMDocument` has a `xpath` propery that exists anywhere your `DOMDocument` does
  * `XPath` functions on `DOMNode`s that know their context
  * Key/Value pair iterator
+ * `saveXML()` anywhere
 
 # Examples
 
@@ -141,6 +142,18 @@ $node = ...;
 foreach ($node->childNodes->toPairs() as $k => $v) {
 	...
 }
+```
+
+## saveXML() anywhere
+
+There's a commonish trick to get the XML just of a subtree of an XML DOM using `ownerDocument` like so:
+```php
+$xml = $node->ownerDocument->saveXML($node);
+```
+
+with a `LyteDOMNode` you can just ask it to save the XML directly:
+```php
+$xml = $node->saveXML();
 ```
 
 # Caveats

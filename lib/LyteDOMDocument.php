@@ -31,4 +31,12 @@ class LyteDOMDocument extends LyteDOMNode {
 
 		return parent::__get($name);
 	}
+
+	/**
+	 * In LyteDOMNode we're overloading saveXML, so we have to
+	 * un overload it again
+	 */
+	public function saveXML($node = null) {
+		return $this->getDecorated()->saveXML(self::_undecorate($node));
+	}
 }

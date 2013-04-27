@@ -9,10 +9,7 @@ abstract class LyteXMLDecorator {
 	protected $_decorated = null;
 
 	public function __construct($obj = null) {
-		if ($obj instanceof LyteXMLDecorator)
-			$this->_decorated =& $obj->_decorated;
-		else
-			$this->_decorated =& $obj;
+		$this->_decorated = self::_undecorate($obj);
 	}
 
 	/**
@@ -55,6 +52,16 @@ abstract class LyteXMLDecorator {
 		if ($obj instanceof DOMNodeList)
 			return new LyteDOMNodeList($obj);
 		return $obj;
+	}
+
+	/**
+	 * Reverse decoration (if applied)
+	 */
+	public static function _undecorate($obj) {
+		if ($obj instanceof LyteXMLDecorator)
+			return $obj->_decorated;
+		else
+			return $obj;
 	}
 
 	/**

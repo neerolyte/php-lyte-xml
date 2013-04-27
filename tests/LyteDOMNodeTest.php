@@ -90,4 +90,11 @@ class LyteDOMNodeTest extends PHPUnit_Framework_TestCase {
 		}
 		$this->assertEquals(1, $count);
 	}
+
+	function testNodesCanSaveTheirOwnXML() {
+		$doc = new LyteDOMDocument();
+		$doc->loadXML('<foo/>');
+
+		$this->assertEquals('<foo/>', $doc->firstChild->saveXML());
+	}
 }

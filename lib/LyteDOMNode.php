@@ -18,10 +18,14 @@ class LyteDOMNode extends LyteXMLDecorator {
 	 * Ensure that appended children are actually the decorated children
 	 */
 	public function appendChild(&$child) {
-		$c =& $child;
-		if ($child instanceof LyteDOMNode) {
-			$c = $child->getDecorated();
-		}
-		return $this->_decorated->appendChild($c);
+		return $this->getDecorated()->appendChild(self::_undecorate($child));
+	}
+
+	/**
+	 * Provide a saveXML on every node that will just save the XML
+	 * for the current node
+	 */
+	public function saveXML($node = null) {
+		return $this->ownerDocument->saveXML($this);
 	}
 }
