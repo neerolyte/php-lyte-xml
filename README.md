@@ -6,16 +6,14 @@ The base classes for XML work in php have a few little quirks that annoy me a lo
 
 Some of what I'm trying to put in is going to be purely experimental, so use at you're own risk :)
 
-# Features
-
- * Correctly encodes nested CDATA
- * Any `XMLReader` expanded `DOMNode` actually has an `ownerDocument`
- * Lazy OO xpaths - `LyteDOMDocument` has a `xpath` propery that exists anywhere your `DOMDocument` does
- * `XPath` functions on `DOMNode`s that know their context
- * Key/Value pair iterator
- * `saveXML()` anywhere
-
 # Examples
+
+ * [Nested CDATA in XMLWriter](#nested-cdata-in-xmlwriter)
+ * [XMLReader expanded DOMNodes actually have ownerDocuments](#expanding-to-a-domnode-from-xmlreader)
+ * [Lazy XPaths - XPaths that actually work in a OO manner](#lazy-xpaths)
+ * [Contextified DOMNode XPath functions](#contextified-domnode-xpath-functions)
+ * [Key/Value pair iterator](#keyvalue-pair-iterator)
+ * [saveXML() anywhere](#savexml-anywhere)
 
 ## Nested CDATA in XMLWriter
 
