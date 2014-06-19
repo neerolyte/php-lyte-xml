@@ -154,6 +154,24 @@ with a `LyteDOMNode` you can just ask it to save the XML directly:
 $xml = $node->saveXML();
 ```
 
+# Translate to UTF8 on the fly
+
+Currently only implemented in `LyteXMLWriter` (but let me know if you need it elsewhere) you can now simply state what the source encoding is and have it transcoded on the fly, e.g:
+
+```php
+$writer = new LyteXMLWriter();
+$writer->openMemory();
+$writer->setSourceCharacterEncoding('Windows-1252');
+$writer->text("Don\x92t you hate word quotes?\n");
+echo $writer->flush();
+```
+
+Produces:
+
+```
+Don’t you hate word quotes?
+```
+
 # Caveats
 
 Most of the classes I've created do not directly inherit from the XML ones, e.g. `new LyteDOMDocument() instanceof DOMDocument` is false. I've currently done this because to avoid duplicating memory all over the place and reserializing too much of the XML, I really need to use the decorator pattern, but even with PHP's [magic methods](http://php.net/manual/en/language.oop5.magic.php) I can't find a way to both inherit and decorate an object. I've even looked in to using the [Reflection API](http://php.net/manual/en/book.reflection.php) to walk the upstream classes and selectively `eval` a new class in to existence, but ran in to problems with many of public properties getting updated at odd times by the base DOM classes.
