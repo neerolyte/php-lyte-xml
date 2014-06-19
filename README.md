@@ -14,6 +14,7 @@ Some of what I'm trying to put in is going to be purely experimental, so use at 
  * [Contextified DOMNode XPath functions](#contextified-domnode-xpath-functions)
  * [Key/Value pair iterator](#keyvalue-pair-iterator)
  * [saveXML() anywhere](#savexml-anywhere)
+ * [Translate to UTF8 on the fly](#translate-to-utf8-on-the-fly)
 
 ## Nested CDATA in XMLWriter
 
