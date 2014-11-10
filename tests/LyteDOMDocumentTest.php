@@ -56,4 +56,20 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('<foo/>', $doc->saveXML($node));
 		$this->assertEquals('<foo/>', $doc->saveXML($lnode));
 	}
+
+	public function testLoadHTMLUTF8() {
+		$doc = new LyteDOMDocument();
+		$str = '你好世界';
+		$doc->loadHTML($str);
+		$this->assertEquals($str, $doc->xpath->evaluate("string(//p/text())"));
+	}
+
+	public function testLoadHTMLISO_8859_1() {
+		$doc = new LyteDOMDocument();
+		// This is actually a Windows-1252 string, which is a super set
+		$str8859 = "\x93bendy quotes\x94";
+		$str = '“bendy quotes”';
+		$doc->loadHTML($str8859, "ISO-8859-1");
+		$this->assertEquals($str, $doc->xpath->evaluate("string(//p/text())"));
+	}
 }

@@ -157,7 +157,9 @@ $xml = $node->saveXML();
 
 # Translate to UTF8 on the fly
 
-Currently only implemented in `LyteXMLWriter` (but let me know if you need it elsewhere) you can now simply state what the source encoding is and have it transcoded on the fly, e.g:
+## LyteXMLWriter
+
+Simply state what the source encoding is and have it transcoded on the fly, e.g:
 
 ```php
 $writer = new LyteXMLWriter();
@@ -171,6 +173,17 @@ Produces:
 
 ```
 Don’t you hate word quotes?
+```
+
+## LyteDOMDocument::loadHTML()
+
+Load HTML from an arbitrary character set:
+
+```
+$dom = new LyteDOMDocument();
+$html = "<p>\x93bendy quotes\x94</p>";
+$encoding = 'Windows-1252';
+$dom->loadHTML($html, $encoding);
 ```
 
 # Caveats

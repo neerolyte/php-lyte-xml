@@ -39,4 +39,22 @@ class LyteDOMDocument extends LyteDOMNode {
 	public function saveXML($node = null) {
 		return $this->getDecorated()->saveXML(self::_undecorate($node));
 	}
+
+	/**
+	 * Convert HTML characters to entities when so that we don't have to deal
+	 * with how brokenly DOMDocument does this
+	 *
+	 * Blatently stolen from SmartDOMDocument:
+	 * http://beerpla.net/projects/smartdomdocument-a-smarter-php-domdocument-class/#encoding-fix
+	  *
+	  * @param string $html
+	  * @param string $encoding
+	 */
+	public function loadHTML($html, $encoding = "utf-8") {
+		$encoding = strtolower($encoding);
+		if ($encoding == 'iso-8859-1') $encoding = 'windows-1252';
+		
+		$html = mb_convert_encoding($html, 'HTML-ENTITIES', $encoding);
+		return $this->getDecorated()->loadHTML($html);
+	}
 }
