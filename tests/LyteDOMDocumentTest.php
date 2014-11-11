@@ -47,6 +47,21 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('<bar/>', $doc->saveXML($lnode));
 	}
 
+	public function testRemoveEitherChildtype() {
+		$doc = new LyteDOMDocument();
+		$doc->loadXML('<root><foo/><bar/></root>');
+
+		$parent = $doc->getElementsByTagName('root')->item(0);
+
+		$lnode = $doc->getElementsByTagName('foo')->item(0);
+		$this->assertInstanceOf('LyteDOMElement', $lnode);
+		$node = $doc->getDecorated()->getElementsByTagName('bar')->item(0);
+		$this->assertInstanceOf('DOMElement', $node);
+
+		$parent->removeChild($lnode);
+		$parent->removeChild($node);
+	}
+
 	public function testCanSaveEitherNodeTypeAsXML() {
 		$doc = new LyteDOMDocument();
 		$doc->loadXML('<foo/>');
