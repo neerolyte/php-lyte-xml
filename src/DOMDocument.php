@@ -9,12 +9,11 @@ class DOMDocument extends DOMNode {
 	/**
 	 * Optionally specify a real DOMDocument to construct this one from
 	 */
-	public function __construct(&$doc = null) {
-		if ($doc !== null) {
-			$this->_decorated =& $doc;
-		} else {
-			$this->_decorated = new \DOMDocument();
+	public function __construct($doc = null) {
+		if ($doc === null) {
+			$doc = new \DOMDocument;
 		}
+		$this->_decorated = $doc;
 	}
 
 	/**

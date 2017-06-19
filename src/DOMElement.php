@@ -7,9 +7,8 @@ class DOMElement extends DOMNode {
 	 */
 	public function __construct($arg) {
 		if (is_string($arg)) {
-			$this->_decorated = new \DOMElement($arg);
-		} else {
-			parent::__construct($arg);
+			$arg = new \DOMElement($arg);
 		}
+		parent::__construct($arg);
 	}
 }
