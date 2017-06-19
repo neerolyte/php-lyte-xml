@@ -1,6 +1,6 @@
 # php-lyte-xml
 
-[![Build Status](https://travis-ci.org/neerolyte/php-lyte-xml.png)](https://travis-ci.org/neerolyte/php-lyte-xml)
+[![Build Status](https://api.travis-ci.org/neerolyte/php-lyte-xml.svg?branch=master)](https://travis-ci.org/neerolyte/php-lyte-xml) [![Coverage Status](https://coveralls.io/repos/github/neerolyte/php-lyte-xml/badge.svg?branch=master)](https://coveralls.io/github/neerolyte/php-lyte-xml?branch=master)
 
 The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those annoyances.
 
