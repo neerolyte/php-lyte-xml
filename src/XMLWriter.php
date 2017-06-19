@@ -1,8 +1,9 @@
 <?php
+namespace Lyte\XML;
 /**
  * Improvements to XMLWriter
  */
-class LyteXMLWriter extends XMLWriter {
+class XMLWriter extends \XMLWriter {
 	/**
 	 * If we are translating the character encoding
 	 */

@@ -1,8 +1,9 @@
 <?php
+namespace Lyte\XML;
 /**
  * Some generalised decorating behaviour
  */
-abstract class LyteXMLDecorator {
+abstract class XMLDecorator {
 	/**
 	 * What we're currently decorating
 	 */
@@ -27,7 +28,7 @@ abstract class LyteXMLDecorator {
 
 		// check through the arguments and undecorate anything before passing through
 		foreach ($origArgs as &$arg) {
-			if ($arg instanceof LyteXMLDecorator) {
+			if ($arg instanceof XMLDecorator) {
 				$args []=& $arg->getDecorated();
 			} else {
 				$args []=& $arg;
@@ -43,14 +44,14 @@ abstract class LyteXMLDecorator {
 	 */
 	public static function _decorate($obj) {
 		// convert certain classes back to their decorated versions
-		if ($obj instanceof DOMDocument)
-			return new LyteDOMDocument($obj);
-		if ($obj instanceof DOMElement)
-			return new LyteDOMElement($obj);
-		if ($obj instanceof DOMNode)
-			return new LyteDOMNode($obj);
-		if ($obj instanceof DOMNodeList)
-			return new LyteDOMNodeList($obj);
+		if ($obj instanceof \DOMDocument)
+			return new DOMDocument($obj);
+		if ($obj instanceof \DOMElement)
+			return new DOMElement($obj);
+		if ($obj instanceof \DOMNode)
+			return new DOMNode($obj);
+		if ($obj instanceof \DOMNodeList)
+			return new DOMNodeList($obj);
 		return $obj;
 	}
 
@@ -58,7 +59,7 @@ abstract class LyteXMLDecorator {
 	 * Reverse decoration (if applied)
 	 */
 	public static function _undecorate($obj) {
-		if ($obj instanceof LyteXMLDecorator)
+		if ($obj instanceof XMLDecorator)
 			return $obj->_decorated;
 		else
 			return $obj;

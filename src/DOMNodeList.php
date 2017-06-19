@@ -1,11 +1,12 @@
 <?php
+namespace Lyte\XML;
 /**
  * LyteDOMNodeList ensures that returned DOMNodes are actually LyteDOMNodes
  *
  * Implements Iterator because DOMNodeList implements Traversable, which is not
  * available to classes that exist outside of PHP's internal C code.
  */
-class LyteDOMNodeList extends LyteXMLDecorator implements Iterator {
+class DOMNodeList extends XMLDecorator implements \Iterator {
 	private $_pos = 0;
 
 	public function current() {
@@ -32,18 +33,18 @@ class LyteDOMNodeList extends LyteXMLDecorator implements Iterator {
 	 *    <keyN>valueN</keyN>
 	 */
 	public function toPairs() {
-		return new LyteDOMNodeListPairsIterator($this);
+		return new DOMNodeListPairsIterator($this);
 	}
 }
 
 /**
  * Iteratres over a LyteDOMNodeList as key value pairs
  */
-class LyteDOMNodeListPairsIterator implements Iterator {
+class DOMNodeListPairsIterator implements \Iterator {
 	private $_list;
 	private $_pos = 0;
 
-	public function __construct(LyteDOMNodeList &$list) {
+	public function __construct(DOMNodeList &$list) {
 		$this->_list =& $list;
 		$this->_seek();
 	}
@@ -53,7 +54,7 @@ class LyteDOMNodeListPairsIterator implements Iterator {
 	}
 	private function _seek() {
 		// iterate past non LyteDOMElement nodes
-		while ($this->valid() && !($this->_list->item($this->_pos) instanceof LyteDOMElement)) {
+		while ($this->valid() && !($this->_list->item($this->_pos) instanceof DOMElement)) {
 			$this->_pos++;
 		}
 	}

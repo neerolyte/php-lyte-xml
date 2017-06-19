@@ -23,7 +23,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Lyte\\XML\\": "src/"
+      "Lyte\\XML\\": "src/",
+      "Lyte\\XML\\Tests\\": "tests/"
     }
   }
 }

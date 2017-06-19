@@ -1,8 +1,9 @@
 <?php
+namespace Lyte\XML;
 /**
  * Improvements to XMLReader
  */
-class LyteXMLReader extends XMLReader {
+class XMLReader extends \XMLReader {
 
 	/**
 	 * Perform a normal expand(), but ensure there's a DOMDocument
@@ -19,6 +20,6 @@ class LyteXMLReader extends XMLReader {
 		}
 
 		// decorate the expanded node
-		return new LyteDOMNode($node);
+		return new DOMNode($node);
 	}
 }

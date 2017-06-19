@@ -1,11 +1,13 @@
 <?php
-require_once(dirname(__FILE__).'/Autoload.php');
-class LyteDOMXPathTest extends PHPUnit_Framework_TestCase {
+namespace Lyte\XML\Tests;
+use Lyte\XML\DOMXPath;
+use Lyte\XML\DOMDocument;
+class DOMXPathTest extends TestCase {
 
 	public function testXPathCanQuery() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<foo/>');
-		$xpath = new LyteDOMXPath($doc);
+		$xpath = new DOMXPath($doc);
 
 		$nodes = $xpath->query('.');
 		$this->assertEquals(1, $nodes->length);

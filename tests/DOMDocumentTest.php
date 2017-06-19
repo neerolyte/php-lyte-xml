@@ -1,8 +1,10 @@
 <?php
-require_once(dirname(__FILE__).'/Autoload.php');
-class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
+namespace Lyte\XML\Tests;
+use Lyte\XML\DOMDocument;
+use Lyte\XML\DOMNode;
+class DOMDocumentTest extends TestCase {
 	public function testLyteDOMDocumentBehavesLikeDOMDocument() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<foo>bar</foo>');
 
 		$this->assertEquals('foo', $doc->firstChild->nodeName);
@@ -10,24 +12,24 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFirstChildIsLyteDOMNode() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<foo/>');
 		
-		$this->assertInstanceOf('LyteDOMNode', $doc->firstChild);
+		$this->assertInstanceOf('Lyte\\XML\\DOMNode', $doc->firstChild);
 	}
 
 	public function testHasXPathProperty() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 
 		$xpath = $doc->xpath;
-		$this->assertInstanceOf('LyteDOMXPath', $xpath);
+		$this->assertInstanceOf('Lyte\\XML\\DOMXPath', $xpath);
 
 		// ensure we get the same instance each time
 		$this->assertTrue($xpath === $doc->xpath);
 	}
 
 	public function testHasXPathWorksOnOurDoc() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<foo/>');
 
 		$nodeName = $doc->xpath->query('/foo')->item(0)->nodeName;
@@ -35,10 +37,10 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanAppendEitherChildtype() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 
 		$node = $doc->getDecorated()->createElement('foo');
-		$lnode = new LyteDOMNode($doc->createElement('bar'));
+		$lnode = new DOMNode($doc->createElement('bar'));
 
 		$doc->appendChild($node);
 		$doc->appendChild($lnode);
@@ -48,13 +50,13 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testRemoveEitherChildtype() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<root><foo/><bar/></root>');
 
 		$parent = $doc->getElementsByTagName('root')->item(0);
 
 		$lnode = $doc->getElementsByTagName('foo')->item(0);
-		$this->assertInstanceOf('LyteDOMElement', $lnode);
+		$this->assertInstanceOf('Lyte\\XML\\DOMElement', $lnode);
 		$node = $doc->getDecorated()->getElementsByTagName('bar')->item(0);
 		$this->assertInstanceOf('DOMElement', $node);
 
@@ -63,9 +65,9 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanSaveEitherNodeTypeAsXML() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$doc->loadXML('<foo/>');
-		$lnode = new LyteDOMNode($doc->firstChild);
+		$lnode = new DOMNode($doc->firstChild);
 		$node = $lnode->getDecorated();
 
 		$this->assertEquals('<foo/>', $doc->saveXML($node));
@@ -73,14 +75,14 @@ class LyteDOMDocumentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLoadHTMLUTF8() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$str = '你好世界';
 		$doc->loadHTML($str);
 		$this->assertEquals($str, $doc->xpath->evaluate("string(//p/text())"));
 	}
 
 	public function testLoadHTMLISO_8859_1() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		// This is actually a Windows-1252 string, which is a super set
 		$str8859 = "\x93bendy quotes\x94";
 		$str = '“bendy quotes”';

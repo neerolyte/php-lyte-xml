@@ -1,15 +1,16 @@
 <?php
-require_once(dirname(__FILE__).'/Autoload.php');
-class LyteXMLWriterTest extends PHPUnit_Framework_TestCase {
+namespace Lyte\XML\Tests;
+use Lyte\XML\XMLWriter;
+class LyteXMLWriterTest extends TestCase {
 	public function testInheritance() {
-		$this->assertInstanceOf('XMLWriter', new LyteXMLWriter());
+		$this->assertInstanceOf('XMLWriter', new XMLWriter());
 	}
 
 	/**
 	 * Ensure we get valid XML when nesting CDATA within another CDATA block
 	 */
 	public function testNestedCDataWithWriteCData() {
-		$writer = new LyteXMLWriter();
+		$writer = new XMLWriter();
 		$writer->openMemory();
 		$writer->writeCData('<![CDATA[a little bit of cdata]]>');
 		$xml = $writer->flush();
@@ -26,7 +27,7 @@ class LyteXMLWriterTest extends PHPUnit_Framework_TestCase {
 		$src = "\x92\xb6\xf8";
 		$wanted = "’¶ø";
 
-		$writer = new LyteXMLWriter();
+		$writer = new XMLWriter();
 		$writer->openMemory();
 		$writer->setSourceCharacterEncoding('iso-8859-1');
 		$this->assertEquals($wanted, $writer->translateEncoding($src));
@@ -58,7 +59,7 @@ class LyteXMLWriterTest extends PHPUnit_Framework_TestCase {
 		);
 
 		foreach ($tests as $code => $res) {
-			$w = $this->getMockBuilder('LyteXMLWriter')
+			$w = $this->getMockBuilder('Lyte\\XML\\XMLWriter')
 				->setMethods(array('translateEncoding'))
 				->getMock();
 			$w->expects($this->any())

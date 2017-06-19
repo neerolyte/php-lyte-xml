@@ -1,33 +1,35 @@
 <?php
-require_once(dirname(__FILE__).'/Autoload.php');
-class LyteDOMNodeListTest extends PHPUnit_Framework_TestCase {
+namespace Lyte\XML\Tests;
+use Lyte\XML\DOMNodeList;
+use Lyte\XML\DOMDocument;
+class DOMNodeListTest extends TestCase {
 	public function testItemReturnsLyteDOMNode() {
-		$doc = new DOMDocument();
+		$doc = new \DOMDocument();
 		$doc->loadXML('<foo/>');
-		$list = new LyteDOMNodeList($doc->childNodes);
+		$list = new DOMNodeList($doc->childNodes);
 
 		$node = $list->item(0);
 
-		$this->assertInstanceOf('LyteDOMNode', $node);
+		$this->assertInstanceOf('Lyte\\XML\\DOMNode', $node);
 		$this->assertEquals('foo', $node->nodeName);
 	}
 
 	public function testTraversable() {
-		$doc = new DOMDocument();
+		$doc = new \DOMDocument();
 		$doc->loadXML('<foo/>');
-		$list = new LyteDOMNodeList($doc->childNodes);
+		$list = new DOMNodeList($doc->childNodes);
 
 		$this->assertInstanceOf('Traversable', $list);
 	}
 
 	public function testIteratingOnLyteDOMNodeListReturnsLyteDOMNodes() {
-		$doc = new DOMDocument();
+		$doc = new \DOMDocument();
 		$doc->loadXML('<foo/>');
-		$list = new LyteDOMNodeList($doc->childNodes);
+		$list = new DOMNodeList($doc->childNodes);
 
 		$items = 0;
 		foreach ($list as $node) {
-			$this->assertInstanceOf('LyteDOMNode', $node);
+			$this->assertInstanceOf('Lyte\\XML\\DOMNode', $node);
 			$this->assertEquals('foo', $node->nodeName);
 			$items++;
 		}
@@ -46,7 +48,7 @@ class LyteDOMNodeListTest extends PHPUnit_Framework_TestCase {
 	 * Lets provide a nice short hand for that
 	 */
 	public function testCanIterateFlatKeyValuePairs() {
-		$doc = new LyteDOMDocument();
+		$doc = new DOMDocument();
 		$xml = "
 			<root>
 				<key1>value1</key1>
