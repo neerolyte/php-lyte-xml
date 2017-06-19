@@ -58,7 +58,9 @@ class LyteXMLWriterTest extends PHPUnit_Framework_TestCase {
 		);
 
 		foreach ($tests as $code => $res) {
-			$w = $this->getMock('LyteXMLWriter', array('translateEncoding'));
+			$w = $this->getMockBuilder('LyteXMLWriter')
+				->setMethods(array('translateEncoding'))
+				->getMock();
 			$w->expects($this->any())
 				->method('translateEncoding')
 				->will($this->returnValueMap($map));
