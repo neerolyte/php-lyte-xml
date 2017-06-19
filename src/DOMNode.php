@@ -1,5 +1,6 @@
 <?php
-class LyteDOMNode extends LyteXMLDecorator {
+namespace Lyte\XML;
+class DOMNode extends XMLDecorator {
 	/**
 	 * Perform a contextualised XPath::query() from this node
 	 */

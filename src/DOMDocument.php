@@ -1,9 +1,11 @@
 <?php
+namespace Lyte\XML;
+use Lyte\XML\DOMNode;
 /**
  * LyteDOMDocument decorates extra behaviour on to DOMDocument, but it
  * can't easilly inherit from it.
  */
-class LyteDOMDocument extends LyteDOMNode {
+class DOMDocument extends DOMNode {
 	/**
 	 * Optionally specify a real DOMDocument to construct this one from
 	 */
@@ -11,7 +13,7 @@ class LyteDOMDocument extends LyteDOMNode {
 		if ($doc !== null) {
 			$this->_decorated =& $doc;
 		} else {
-			$this->_decorated = new DOMDocument();
+			$this->_decorated = new \DOMDocument();
 		}
 	}
 
@@ -20,12 +22,8 @@ class LyteDOMDocument extends LyteDOMNode {
 	 * DOMDocument
 	 */
 	public function __get($name) {
-		if ($name == 'firstChild') {
-			$this->firstChild = new LyteDOMNode($this->_decorated->firstChild);
-			return $this->firstChild;
-		}
 		if ($name == 'xpath') {
-			$this->xpath = new LyteDOMXPath($this);
+			$this->xpath = new DOMXPath($this);
 			return $this->xpath;
 		}
 

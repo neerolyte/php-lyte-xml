@@ -1,0 +1,30 @@
+{
+  "name": "lyte/xml",
+  "description": "Make XML handling in PHP slightly more pleasant",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "David Schoen",
+      "email": "dave@lyte.id.au"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "satooshi/php-coveralls": "*"
+  },
+  "scripts": {
+    "test": [
+      "phpunit --verbose --debug"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Lyte\\XML\\": "src/",
+      "Lyte\\XML\\Tests\\": "tests/"
+    }
+  }
+}
