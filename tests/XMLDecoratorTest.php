@@ -3,7 +3,7 @@ namespace Lyte\XML\Tests;
 use Lyte\XML\DOMNode;
 use Lyte\XML\XMLDecorator;
 use Lyte\XML\DOMElement;
-class LyteXMLDecoratorTest extends TestCase {
+class XMLDecoratorTest extends TestCase {
 	public function testDecoratingADOMNode() {
 		$node = new \DOMNode();
 		$this->assertInstanceOf('Lyte\\XML\\DOMNode', XMLDecorator::_decorate($node));

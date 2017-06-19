@@ -1,7 +1,7 @@
 <?php
 namespace Lyte\XML\Tests;
 use Lyte\XML\XMLWriter;
-class LyteXMLWriterTest extends TestCase {
+class XMLWriterTest extends TestCase {
 	public function testInheritance() {
 		$this->assertInstanceOf('XMLWriter', new XMLWriter());
 	}
