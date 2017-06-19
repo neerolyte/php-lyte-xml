@@ -16,13 +16,6 @@ class DOMNode extends XMLDecorator {
 	}
 
 	/**
-	 * Ensure that appended children are actually the decorated children
-	 */
-	public function appendChild(&$child) {
-		return $this->getDecorated()->appendChild(self::_undecorate($child));
-	}
-
-	/**
 	 * Provide a saveXML on every node that will just save the XML
 	 * for the current node
 	 */
