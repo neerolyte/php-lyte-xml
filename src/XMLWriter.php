@@ -7,7 +7,7 @@ class XMLWriter extends \XMLWriter {
 	/**
 	 * If we are translating the character encoding
 	 */
-	private $_sourceCharacterEncoding = null;
+	private $sourceCharacterEncoding = null;
 
 	/**
 	 * We will optionally translate from a source character encoding other than
@@ -19,7 +19,7 @@ class XMLWriter extends \XMLWriter {
 		if (strtolower($encoding) == 'iso-8859-1')
 			$encoding = 'Windows-1252';
 
-		$this->_sourceCharacterEncoding = $encoding;
+		$this->sourceCharacterEncoding = $encoding;
 	}
 
 	/**
@@ -27,10 +27,10 @@ class XMLWriter extends \XMLWriter {
 	 * setSourceCharacterEncoding()
 	 */
 	public function translateEncoding($data) {
-		if ($this->_sourceCharacterEncoding === null)
+		if ($this->sourceCharacterEncoding === null)
 			return $data;
 
-		return iconv($this->_sourceCharacterEncoding, 'utf-8', $data);
+		return iconv($this->sourceCharacterEncoding, 'utf-8', $data);
 	}
 
 	/**
