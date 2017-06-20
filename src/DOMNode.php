@@ -19,7 +19,7 @@ class DOMNode extends XMLDecorator {
 	 * Provide a saveXML on every node that will just save the XML
 	 * for the current node
 	 */
-	public function saveXML($node = null) {
+	public function saveXML() {
 		return $this->ownerDocument->saveXML($this);
 	}
 }
