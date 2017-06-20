@@ -1,6 +1,9 @@
 # php-lyte-xml
 
-[![Build Status](https://api.travis-ci.org/neerolyte/php-lyte-xml.svg?branch=master)](https://travis-ci.org/neerolyte/php-lyte-xml) [![Coverage Status](https://coveralls.io/repos/github/neerolyte/php-lyte-xml/badge.svg?branch=master)](https://coveralls.io/github/neerolyte/php-lyte-xml?branch=master)
+[![Build Status](https://api.travis-ci.org/neerolyte/php-lyte-xml.svg?branch=master)](https://travis-ci.org/neerolyte/php-lyte-xml)
+[![Coverage Status](https://coveralls.io/repos/github/neerolyte/php-lyte-xml/badge.svg?branch=master)](https://coveralls.io/github/neerolyte/php-lyte-xml?branch=master)
+[![Code Climate](https://codeclimate.com/github/neerolyte/php-lyte-xml/badges/gpa.svg)](https://codeclimate.com/github/neerolyte/php-lyte-xml)
+[![Issue Count](https://codeclimate.com/github/neerolyte/php-lyte-xml/badges/issue_count.svg)](https://codeclimate.com/github/neerolyte/php-lyte-xml)
 
 The base classes for XML work in php have a few little quirks that annoy me a lot, this is a simple collection of fixes for those annoyances.
 
