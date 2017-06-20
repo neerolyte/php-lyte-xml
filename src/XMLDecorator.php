@@ -27,12 +27,8 @@ class XMLDecorator {
 		$args = array();
 
 		// check through the arguments and undecorate anything before passing through
-		foreach ($origArgs as &$arg) {
-			if ($arg instanceof XMLDecorator) {
-				$args []= $arg->getDecorated();
-			} else {
-				$args []= $arg;
-			}
+		foreach ($origArgs as $arg) {
+			$args []= $this->undecorate($arg);
 		}
 
 		$ret = call_user_func_array(array($this->decorated, $name), $args);
