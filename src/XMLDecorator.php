@@ -3,21 +3,21 @@ namespace Lyte\XML;
 /**
  * Some generalised decorating behaviour
  */
-abstract class XMLDecorator {
+class XMLDecorator {
 	/**
 	 * What we're currently decorating
 	 */
-	protected $_decorated = null;
+	protected $decorated = null;
 
 	public function __construct($obj = null) {
-		$this->_decorated = self::_undecorate($obj);
+		$this->decorated = $this->undecorate($obj);
 	}
 
 	/**
 	 * Make the underlying decorated node accessible
 	 */
-	public function &getDecorated() {
-		return $this->_decorated;
+	public function getDecorated() {
+		return $this->decorated;
 	}
 
 	/**
@@ -29,20 +29,20 @@ abstract class XMLDecorator {
 		// check through the arguments and undecorate anything before passing through
 		foreach ($origArgs as &$arg) {
 			if ($arg instanceof XMLDecorator) {
-				$args []=& $arg->getDecorated();
+				$args []= $arg->getDecorated();
 			} else {
-				$args []=& $arg;
+				$args []= $arg;
 			}
 		}
 
-		$ret = call_user_func_array(array($this->_decorated, $name), $args);
-		return $this->_decorate($ret);
+		$ret = call_user_func_array(array($this->decorated, $name), $args);
+		return $this->decorate($ret);
 	}
 
 	/**
 	 * Decorate one of the XML classes back to a LyteXML class
 	 */
-	public static function _decorate($obj) {
+	public function decorate($obj) {
 		// convert certain classes back to their decorated versions
 		if ($obj instanceof \DOMDocument)
 			return new DOMDocument($obj);
@@ -58,9 +58,9 @@ abstract class XMLDecorator {
 	/**
 	 * Reverse decoration (if applied)
 	 */
-	public static function _undecorate($obj) {
+	public function undecorate($obj) {
 		if ($obj instanceof XMLDecorator)
-			return $obj->_decorated;
+			return $obj->decorated;
 		else
 			return $obj;
 	}
@@ -70,6 +70,6 @@ abstract class XMLDecorator {
 	 * DOMDocument
 	 */
 	public function __get($name) {
-		return $this->_decorate($this->_decorated->$name);
+		return $this->decorate($this->decorated->$name);
 	}
 }

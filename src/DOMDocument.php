@@ -13,7 +13,7 @@ class DOMDocument extends DOMNode {
 		if ($doc === null) {
 			$doc = new \DOMDocument;
 		}
-		$this->_decorated = $doc;
+		$this->decorated = $doc;
 	}
 
 	/**
@@ -34,7 +34,7 @@ class DOMDocument extends DOMNode {
 	 * un overload it again
 	 */
 	public function saveXML($node = null) {
-		return $this->getDecorated()->saveXML(self::_undecorate($node));
+		return $this->getDecorated()->saveXML($this->undecorate($node));
 	}
 
 	/**

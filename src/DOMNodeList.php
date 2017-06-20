@@ -7,23 +7,23 @@ namespace Lyte\XML;
  * available to classes that exist outside of PHP's internal C code.
  */
 class DOMNodeList extends XMLDecorator implements \Iterator {
-	private $_pos = 0;
+	private $pos = 0;
 
 	public function current() {
-		$raw = $this->_decorated->item($this->_pos);
-		return $this->_decorate($raw);
+		$raw = $this->decorated->item($this->pos);
+		return $this->decorate($raw);
 	}
-	public function next() { $this->_pos++; }
-	public function key() { return $this->_pos; }
+	public function next() { $this->pos++; }
+	public function key() { return $this->pos; }
 	/**
 	 * Is the current position valid?
 	 */
 	public function valid() {
 		return 
-			$this->_pos < $this->_decorated->length 
-			&& $this->_pos >= 0;
+			$this->pos < $this->decorated->length 
+			&& $this->pos >= 0;
 	}
-	public function rewind() { $this->_pos = 0; }
+	public function rewind() { $this->pos = 0; }
 
 	/**
 	 * Provide a simple API to iterate over key value pair XML like:

@@ -6,6 +6,6 @@ namespace Lyte\XML;
  */
 class DOMXPath extends XMLDecorator {
 	public function __construct(&$arg) {
-		$this->_decorated = new \DOMXPath($arg->getDecorated());
+		$this->decorated = new \DOMXPath($arg->getDecorated());
 	}
 }
