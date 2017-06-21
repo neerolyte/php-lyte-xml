@@ -6,7 +6,6 @@ php:
  - '7.1'
  - hhvm
 before_script: composer up
-script: vendor/bin/phpunit --verbose --coverage-text
+script: vendor/bin/phpunit --verbose
 after_success:
- - travis_retry php vendor/bin/coveralls -v
  - vendor/bin/test-reporter # codeclimate

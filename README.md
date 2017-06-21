@@ -1,7 +1,7 @@
 # php-lyte-xml
 
 [![Build Status](https://api.travis-ci.org/neerolyte/php-lyte-xml.svg?branch=master)](https://travis-ci.org/neerolyte/php-lyte-xml)
-[![Coverage Status](https://coveralls.io/repos/github/neerolyte/php-lyte-xml/badge.svg?branch=master)](https://coveralls.io/github/neerolyte/php-lyte-xml?branch=master)
+[![Test Coverage](https://codeclimate.com/github/neerolyte/php-lyte-xml/badges/coverage.svg)](https://codeclimate.com/github/neerolyte/php-lyte-xml/coverage)
 [![Code Climate](https://codeclimate.com/github/neerolyte/php-lyte-xml/badges/gpa.svg)](https://codeclimate.com/github/neerolyte/php-lyte-xml)
 [![Issue Count](https://codeclimate.com/github/neerolyte/php-lyte-xml/badges/issue_count.svg)](https://codeclimate.com/github/neerolyte/php-lyte-xml)
 
