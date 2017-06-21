@@ -204,6 +204,10 @@ $encoding = 'Windows-1252';
 $dom->loadHTML($html, $encoding);
 ```
 
+# Requirements
+
+PHP 5.4+ or HHVM.
+
 # Caveats
 
 Most of the classes I've created do not directly inherit from the XML ones, e.g. `new Lyte\XML\DOMDocument() instanceof \DOMDocument` is false. I've currently done this because to avoid duplicating memory all over the place and reserializing too much of the XML, I really need to use the decorator pattern, but even with PHP's [magic methods](http://php.net/manual/en/language.oop5.magic.php) I can't find a way to both inherit and decorate an object. I've even looked in to using the [Reflection API](http://php.net/manual/en/book.reflection.php) to walk the upstream classes and selectively `eval` a new class in to existence, but ran in to problems with many of public properties getting updated at odd times by the base DOM classes.
