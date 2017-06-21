@@ -1,6 +1,6 @@
 {
   "name": "lyte/xml",
-  "description": "Make XML handling in PHP slightly more pleasant",
+  "description": "Safer and simpler XML handling for PHP",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
